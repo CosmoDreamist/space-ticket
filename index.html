@@ -110,9 +110,67 @@
             color: black;
             font-weight: bold;
         }
+        /* 新增样式 */
+        .menu {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .dropdown {
+            display: none; /* 初始状态为不显示 */
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background-color: white;
+            color: black;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            opacity: 0; /* 初始透明度 */
+            transition: opacity 0.3s ease, transform 0.3s ease; /* 添加过渡效果 */
+            transform: translateY(-10px); /* 初始位置稍微向上 */
+        }
+        .dropdown.show {
+            display: block; /* 显示下拉菜单 */
+            opacity: 1; /* 完全不透明 */
+            transform: translateY(0); /* 恢复到原位置 */
+        }
+        .dropdown a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+        }
+        .dropdown a:hover {
+            background-color: #f0f0f0;
+        }
+        /* 页脚样式 */
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #001f3f;
+            color: white;
+            text-align: center;
+        }
+        footer a {
+            color: #ffcc00;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
+    <div class="menu" onclick="toggleDropdown()">☰</div>
+    <div class="dropdown" id="dropdownMenu">
+        <a href="team.html">Our Team</a> <!-- 更新链接 -->
+        <a href="#more-info">More Info</a>
+        <a href="#faq">FAQ</a>
+    </div>
+
     <h1>5000 Years Later Space Ticket</h1>
     <h2>Reserve the Last Space Adventure for Earthlings 5000 Years Later</h2>
     <div>
@@ -159,8 +217,26 @@
         *Please fill in your real personal information, and we will keep it to find your descendants in five thousand years.
     </div>
 
+    <footer>
+        <p>&copy; 2024 Space Adventure. All rights reserved.</p>
+        <p>
+            Follow us on 
+            <a href="https://twitter.com" target="_blank">Twitter</a>, 
+            <a href="https://facebook.com" target="_blank">Facebook</a>, 
+            <a href="https://instagram.com" target="_blank">Instagram</a>
+        </p>
+        <p>
+            Accounts don't exist. But we are still working on it.
+        </p>
+    </footer>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
     <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdownMenu');
+            dropdown.classList.toggle('show'); // 切换显示状态
+        }
+
         function generateFreeTicket() {
             const name = document.getElementById('name').value.toUpperCase();
             const surname = document.getElementById('surname').value.toUpperCase();
