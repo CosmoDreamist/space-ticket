@@ -1,312 +1,250 @@
-<!-- c:\Users\huser\Desktop\Untitled-1.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Space Ticket</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(to bottom, #001f3f, #003366);
-            color: white;
-            text-align: center;
-            padding: 50px;
-            margin: 0;
-            font-weight: bold;
-        }
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Space Ticket</title>
+   <style>
+       body {
+           font-family: 'Arial', sans-serif;
+           color: white;
+           text-align: center;
+           margin: 0;
+           font-weight: bold;
+           min-height: 100vh;
+           overflow-x: hidden;
+           background-image: url('10002.jpg'); /* 修改为新的背景图片 */
+           background-attachment: scroll; /* 背景跟随页面滚动 */
+           background-size: cover;
+           background-position: center;
+       }
+        .content-wrapper {
+           position: relative;
+           z-index: 2; /* 确保内容在前面 */
+           padding: 30px 50px 50px 50px;
+       }
         h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
+           font-size: 3.5em;
+           margin-bottom: 10px;
+           text-shadow: none; 
+           padding-top: 30px;
+       }
+        h2 {
+           font-size: 1.8em;
+           margin-bottom: 40px;
+           text-shadow: none; 
+       }
         input, select {
-            padding: 10px;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            width: 90%; /* 调整为90%以适应手机屏幕 */
-            max-width: 400px; /* 设置最大宽度 */
-            font-weight: bold;
-        }
-        .surname-input {
-            margin-left: 0; /* 移除左边距 */
-            width: 90%; /* 确保宽度一致 */
-        }
+           padding: 10px;
+           font-size: 1.2em;
+           border: none;
+           border-radius: 5px;
+           margin-bottom: 20px;
+           width: 90%;
+           max-width: 400px;
+           font-weight: bold;
+           display: block;
+           margin-left: auto;
+           margin-right: auto;
+           background-color: rgba(255, 255, 255, 0.9);
+           box-shadow: 0 0 15px rgba(255,255,255,0.2);
+       }
         .button-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap; /* 允许换行 */
-            margin-bottom: 20px;
-        }
+           display: flex;
+           justify-content: center;
+           flex-wrap: wrap;
+           margin-bottom: 20px;
+       }
         button {
-            padding: 10px 20px;
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #333;
-            background-color: #ffcc00;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-            margin: 10px; /* 按钮之间的间距 */
-            flex: 1 1 200px; /* 适应不同屏幕宽度 */
-        }
+           padding: 10px 20px;
+           font-size: 1.2em;
+           font-weight: bold;
+           color: #333;
+           background-color: #ffcc00;
+           border: none;
+           border-radius: 5px;
+           cursor: pointer;
+           transition: background-color 0.3s, color 0.3s;
+           margin: 10px;
+           flex: 1 1 200px;
+           box-shadow: 0 0 15px rgba(255,204,0,0.3);
+       }
         button:hover {
-            background-color: #ff9900;
-            color: white;
-        }
+           background-color: #ff9900;
+           color: white;
+       }
         #ticket {
-            display: none; /* 保持为不显示 */
-            width: 95%; /* 调整为95%以适应手机屏幕 */
-            max-width: 600px; /* 设置最大宽度 */
-            height: auto;
-            margin: 20px auto;
-            padding: 30px;
-            border-radius: 10px;
-            background-color: rgba(240, 240, 240, 0.9);
-            color: black;
-            position: relative;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-            display: flex; /* 使用flex布局 */
-            flex-direction: column; /* 纵向排列内容 */
-        }
-        .ticket-header, .ticket-footer {
-            background-color: #ffcc00;
-            height: 30px;
-            margin: 0;
-            width: 100%; /* 修改为100%以填满宽度 */
-            left: 0; /* 确保横条与左边对齐 */
-            position: absolute;
-        }
-        .ticket-header {
-            top: 0;
-        }
-        .ticket-footer {
-            bottom: 0;
-        }
-        #ticket h2 {
-            margin: 0;
-            font-size: 2.5em;
-            text-align: center;
-            color: #001f3f; /* 修改字体颜色为背景色 */
-            text-transform: uppercase;
-            position: relative;
-            z-index: 1;
-        }
-        .ticket-info {
-            font-size: 1.2em;
-            margin: 10px 0;
-            text-align: left;
-            color: black;
-            font-weight: bold;
-        }
-        .ticket-name, .ticket-surname {
-            font-size: 2.5em;
-            text-transform: uppercase;
-            margin: 10px 0;
-            text-align: left;
-            color: black;
-            font-weight: bold;
-        }
-        /* 新增样式 */
-        .menu {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            cursor: pointer;
-            z-index: 10;
-        }
-        .dropdown {
-            display: none; /* 初始状态为不显示 */
-            position: absolute;
-            top: 40px;
-            right: 0;
-            background-color: white;
-            color: black;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            z-index: 10;
-            opacity: 0; /* 初始透明度 */
-            transition: opacity 0.3s ease, transform 0.3s ease; /* 添加过渡效果 */
-            transform: translateY(-10px); /* 初始位置稍微向上 */
-        }
-        .dropdown.show {
-            display: block; /* 显示下拉菜单 */
-            opacity: 1; /* 完全不透明 */
-            transform: translateY(0); /* 恢复到原位置 */
-        }
-        .dropdown a {
-            display: block;
-            padding: 10px;
-            text-decoration: none;
-            color: black;
-        }
-        .dropdown a:hover {
-            background-color: #f0f0f0;
-        }
-        /* 页脚样式 */
+           width: 95%;
+           max-width: 600px;
+           height: auto;
+           margin: 20px auto;
+           padding: 30px;
+           border-radius: 10px;
+           background-color: rgba(240, 240, 240, 0.95);
+           color: black;
+           position: relative;
+           box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+           overflow: hidden;
+           display: none;
+       }
         footer {
-            margin-top: 50px;
-            padding: 20px;
-            background-color: #001f3f;
-            color: white;
-            text-align: center;
-        }
+           margin-top: 50px;
+           padding: 20px;
+           background-color: rgba(0, 31, 63, 0.8);
+           color: white;
+           text-align: center;
+           position: relative;
+           z-index: 2;
+       }
         footer a {
-            color: #ffcc00;
-            text-decoration: none;
-        }
+           color: #ffcc00;
+           text-decoration: none;
+       }
         footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
+           text-decoration: underline;
+       }
+        .notice {
+           font-size: 0.8em;
+           font-style: italic;
+           margin-top: 20px;
+           text-shadow: 0 0 5px rgba(255,255,255,0.3);
+       }
+   </style>
 </head>
 <body>
-    <div class="menu" onclick="toggleDropdown()">☰</div>
-    <div class="dropdown" id="dropdownMenu">
-        <a href="team.html">Our Team</a> <!-- 更新链接 -->
-        <a href="#more-info">More Info</a>
-        <a href="#faq">FAQ</a>
-    </div>
-
-    <h1>5000 Years Later Space Ticket</h1>
-    <h2>Reserve the Last Space Adventure for Earthlings 5000 Years Later</h2>
-    <div>
-        <input type="text" id="name" placeholder="Enter your name" required />
-    </div>
-    <div>
-        <input type="text" id="surname" class="surname-input" placeholder="Enter your surname" required />
-    </div>
-    <select id="nationality" required>
-        <option value="">Select your nationality</option>
-        <option value="China">China</option>
-        <option value="Colombia">Colombia</option>
-        <option value="India">India</option>
-        <option value="Italy">Italy</option>
-        <option value="Morocco">Morocco</option>
-        <option value="Peru">Peru</option>
-        <option value="Romania">Romania</option>
-        <option value="Other">Other</option>
-    </select>
-
-    <div class="button-container">
-        <button onclick="generateFreeTicket()">Get Free Ticket if you are a classmate of the Founders</button>
-        <button onclick="purchaseTicket()">Purchase Ticket for 999 Euros</button>
-    </div>
-
-    <div id="ticket" style="display: none;"> <!-- 确保初始状态为不显示 -->
-        <div class="main-ticket"> <!-- 主票部分 -->
-            <div class="ticket-header"></div>
-            <h2>your Ticket</h2> <!-- 修改文本 -->
-            <p class="ticket-name" id="ticketName"></p>
-            <p class="ticket-surname" id="ticketSurname"></p>
-            <p class="ticket-info">Nationality: <span id="ticketNationality"></span></p>
-            <p class="ticket-info">Flight Number: <span id="flightNumber">FL1234</span></p>
-            <p class="ticket-info">Launch Site: Earth</p>
-            <p class="ticket-info">Arrival Site: Outer Space</p>
-            <p class="ticket-info">Scheduled Departure: July 8025</p>
-            <div class="ticket-footer"></div>
-        </div>
-    </div>
-
-    <div id="countdown" style="display: none;"></div>
-    
-    <div style="font-size: 0.8em; font-style: italic; margin-top: 20px;">
-        *Please fill in your real personal information, and we will keep it to find your descendants in five thousand years.
-    </div>
-
-    <footer>
-        <p>&copy; 2024 Space Adventure. All rights reserved.</p>
-        <p>
-            Follow us on 
-            <a href="https://twitter.com" target="_blank">Twitter</a>, 
-            <a href="https://facebook.com" target="_blank">Facebook</a>, 
-            <a href="https://instagram.com" target="_blank">Instagram</a>
-        </p>
-        <p>
-            Accounts don't exist. But we are still working on it.
-        </p>
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+   <div class="content-wrapper">
+       <h1>5000 YEARS LATER<br>SPACE TICKET</h1> <!-- 分行显示 -->
+       <h2>Reserve the Last Space Adventure for Earthlings</h2>
+       <div>
+           <input type="text" id="name" placeholder="Enter your name" required />
+       </div>
+       <div>
+           <input type="text" id="surname" class="surname-input" placeholder="Enter your surname" required />
+       </div>
+       <div>
+           <select id="nationality" required>
+               <option value="">Select your nationality</option>
+               <option value="China">China</option>
+               <option value="Colombia">Colombia</option>
+               <option value="India">India</option>
+               <option value="Italy">Italy</option>
+               <option value="Morocco">Morocco</option>
+               <option value="Peru">Peru</option>
+               <option value="Romania">Romania</option>
+               <option value="Other">Other</option>
+           </select>
+       </div>
+       <div>
+           <select id="package" required>
+               <option value="">Select your travel package</option>
+               <option value="package1">Package 1: Moon/Mars Tour (500 years later)</option>
+               <option value="package2">Package 2: Beyond Solar System Tour (2000 years later)</option>
+               <option value="package3">Package 3: Beyond Milky Way Tour (5000 years later)</option>
+           </select>
+       </div>
+       <div class="button-container">
+           <button onclick="generateFreeTicket()">Get Free Ticket if you are a classmate of the Founders</button>
+           <button onclick="purchaseTicket()">Purchase Ticket for 999 Euros</button>
+       </div>
+       <div id="ticket">
+           <div class="main-ticket">
+               <div class="ticket-header"></div>
+               <h2>Your Ticket</h2>
+               <p class="ticket-name" id="ticketName"></p>
+               <p class="ticket-surname" id="ticketSurname"></p>
+               <p class="ticket-info">Nationality: <span id="ticketNationality"></span></p>
+               <p class="ticket-info">Package: <span id="ticketPackage"></span></p>
+               <p class="ticket-info">Launch Site: Earth</p>
+               <p class="ticket-info">Arrival Site: Outer Space</p>
+               <p class="ticket-info">Scheduled Departure: <span id="departureYear"></span></p>
+               <div class="ticket-footer"></div>
+           </div>
+       </div>
+       
+       <div class="notice">
+           *Please fill in your real personal information, and we will keep it to find your descendants in the future.
+       </div>
+       <footer>
+           <p>&copy; 2024 Space Adventure. All rights reserved.</p>
+           <p>
+               Follow us on 
+               <a href="https://twitter.com" target="_blank">Twitter</a>, 
+               <a href="https://facebook.com" target="_blank">Facebook</a>, 
+               <a href="https://instagram.com" target="_blank">Instagram</a>
+           </p>
+           <p>
+               Accounts don't exist yet. We are still working on it.
+           </p>
+       </footer>
+   </div>
     <script>
-        function toggleDropdown() {
-            const dropdown = document.getElementById('dropdownMenu');
-            dropdown.classList.toggle('show'); // 切换显示状态
-        }
-
+       function updateTicketInfo() {
+           const package = document.getElementById('package').value;
+           let packageText = '';
+           let departureYear = '';
+           
+           switch(package) {
+               case 'package1':
+                   packageText = 'Moon/Mars Tour (500 years later)';
+                   departureYear = '2850';
+                   break;
+               case 'package2':
+                   packageText = 'Beyond Solar System Tour (2000 years later)';
+                   departureYear = '5050';
+                   break;
+               case 'package3':
+                   packageText = 'Beyond Milky Way Tour (5000 years later)';
+                   departureYear = '8050';
+                   break;
+           }
+           
+           document.getElementById('ticketPackage').innerText = packageText;
+           document.getElementById('departureYear').innerText = departureYear;
+       }
         function generateFreeTicket() {
-            const name = document.getElementById('name').value.toUpperCase();
-            const surname = document.getElementById('surname').value.toUpperCase();
-            const nationality = document.getElementById('nationality').value;
-            if (!name || !surname || !nationality) {
-                alert("Please fill in all fields.");
-                return;
-            }
-            document.getElementById('ticketName').innerText = name;
-            document.getElementById('ticketSurname').innerText = surname;
-            document.getElementById('ticketNationality').innerText = nationality;
-            const ticket = document.getElementById('ticket');
-            ticket.style.display = 'block'; // 显示门票
-            setTimeout(() => {
-                ticket.style.opacity = 1;
-                ticket.style.transform = 'scale(1)';
-            }, 10);
-
-            document.getElementById('countdown').style.display = 'block';
-            startCountdown();
-        }
-
+           const name = document.getElementById('name').value.toUpperCase();
+           const surname = document.getElementById('surname').value.toUpperCase();
+           const nationality = document.getElementById('nationality').value;
+           const package = document.getElementById('package').value;
+           
+           if (!name || !surname || !nationality || !package) {
+               alert("Please fill in all fields.");
+               return;
+           }
+           
+           document.getElementById('ticketName').innerText = name;
+           document.getElementById('ticketSurname').innerText = surname;
+           document.getElementById('ticketNationality').innerText = nationality;
+           updateTicketInfo();
+           
+           const ticket = document.getElementById('ticket');
+           ticket.style.display = 'block';
+       }
         function purchaseTicket() {
-            const name = document.getElementById('name').value.toUpperCase();
-            const surname = document.getElementById('surname').value.toUpperCase();
-            const nationality = document.getElementById('nationality').value;
-            if (!name || !surname || !nationality) {
-                alert("Please fill in all fields.");
-                return;
-            }
-            const paymentMethod = prompt("Please enter your payment method (e.g., credit card number):");
-            if (paymentMethod) {
-                alert("Thank you for your purchase! Your payment method: " + paymentMethod);
-                document.getElementById('ticketName').innerText = name;
-                document.getElementById('ticketSurname').innerText = surname;
-                document.getElementById('ticketNationality').innerText = nationality;
-                const ticket = document.getElementById('ticket');
-                ticket.style.display = 'block'; // 显示门票
-                setTimeout(() => {
-                    ticket.style.opacity = 1;
-                    ticket.style.transform = 'scale(1)';
-                }, 10);
-                document.getElementById('countdown').style.display = 'block';
-                startCountdown();
-            } else {
-                alert("Payment method is required to proceed.");
-            }
-        }
-
-        function startCountdown() {
-            let countdownDate = new Date().getTime() + 5000 * 365 * 24 * 60 * 60 * 1000;
-
-            const countdownFunction = setInterval(() => {
-                let now = new Date().getTime();
-                let distance = countdownDate - now;
-
-                let years = Math.floor(distance / (1000 * 60 * 60 * 24 * 365));
-                let days = Math.floor((distance % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24));
-                let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                document.getElementById("countdown").innerHTML = years + " years " + days + " days " + hours + " hours " + minutes + " minutes " + seconds + " seconds left until the adventure!";
-                
-                if (distance < 0) {
-                    clearInterval(countdownFunction);
-                    document.getElementById("countdown").innerHTML = "The adventure has begun!";
-                }
-            }, 1000);
-        }
-    </script>
+           const name = document.getElementById('name').value.toUpperCase();
+           const surname = document.getElementById('surname').value.toUpperCase();
+           const nationality = document.getElementById('nationality').value;
+           const package = document.getElementById('package').value;
+           
+           if (!name || !surname || !nationality || !package) {
+               alert("Please fill in all fields.");
+               return;
+           }
+           
+           const paymentMethod = prompt("Please enter your payment method (e.g., credit card number):");
+           if (paymentMethod) {
+               alert("Thank you for your purchase! Your payment method: " + paymentMethod);
+               document.getElementById('ticketName').innerText = name;
+               document.getElementById('ticketSurname').innerText = surname;
+               document.getElementById('ticketNationality').innerText = nationality;
+               updateTicketInfo();
+               
+               const ticket = document.getElementById('ticket');
+               ticket.style.display = 'block';
+           } else {
+               alert("Payment method is required to proceed.");
+           }
+       }
+   </script>
 </body>
-</html>
+</html> 
