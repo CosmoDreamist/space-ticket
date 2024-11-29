@@ -145,143 +145,140 @@ head>
       }
   </style>
 /head>
-
-class="content-wrapper">
-<h1>5000 YEARS LATER<br>SPACE TICKET</h1>
-<h2>Reserve the Last Space Adventure for Earthlings</h2>
-<div>
-    <input type="text" id="name" placeholder="Enter your name" required />
-</div>
-<div>
-    <input type="text" id="surname" class="surname-input" placeholder="Enter your surname" required />
-</div>
-<div>
-    <select id="nationality" required>
-        <option value="">Select your nationality</option>
-        <option value="China">China</option>
-        <option value="Colombia">Colombia</option>
-        <option value="India">India</option>
-        <option value="Italy">Italy</option>
-        <option value="Morocco">Morocco</option>
-        <option value="Peru">Peru</option>
-        <option value="Romania">Romania</option>
-        <option value="Other">Other</option>
-    </select>
-</div>
-<div>
-    <select id="package" required>
-        <option value="">Select your travel package</option>
-        <option value="package1">Package 1: Moon/Mars Tour (500 years later)</option>
-        <option value="package2">Package 2: Beyond Solar System Tour (2000 years later)</option>
-        <option value="package3">Package 3: Beyond Milky Way Tour (5000 years later)</option>
-    </select>
-</div>
-<div class="button-container">
-    <button onclick="generateFreeTicket()">Get Free Ticket if you are a classmate of the Founders</button>
-    <button onclick="purchaseTicket()">Purchase Ticket for 999 Euros</button>
-</div>
-<div id="ticket">
-    <div class="ticket-header"></div>
-    <div class="main-ticket">
-        <h2>Your Ticket</h2>
-        <p class="ticket-name" id="ticketName"></p>
-        <p class="ticket-surname" id="ticketSurname"></p>
-        <p class="ticket-info">Nationality: <span id="ticketNationality"></span></p>
-        <p class="ticket-info">Package: <span id="ticketPackage"></span></p>
-        <p class="ticket-info">Launch Site: Earth</p>
-        <p class="ticket-info">Arrival Site: Outer Space</p>
-        <p class="ticket-info">Scheduled Departure: <span id="departureYear"></span></p>
-    </div>
-    <div class="ticket-footer"></div>
-</div>
-
-<div class="notice">
-    *Please fill in your real personal information, and we will keep it to find your descendants in the future.
-</div>
-<footer>
-    <p>&copy; 2024 Space Adventure. All rights reserved.</p>
-    <p>
-        Follow us on 
-        <a href="https://twitter.com" target="_blank">Twitter</a>, 
-        <a href="https://facebook.com" target="_blank">Facebook</a>, 
-        <a href="https://instagram.com" target="_blank">Instagram</a>
-    </p>
-    <p>
-        The accounts don't exist yet. But we are still working on it.
-    </p>
-</footer>
-</div>
-
-<script>
-function updateTicketInfo() {
-    const package = document.getElementById('package').value;
-    let packageText = '';
-    let departureYear = '';
-    
-    switch(package) {
-        case 'package1':
-            packageText = 'Moon/Mars Tour (500 years later)';
-            departureYear = '2850';
-            break;
-        case 'package2':
-            packageText = 'Beyond Solar System Tour (2000 years later)';
-            departureYear = '5050';
-            break;
-        case 'package3':
-            packageText = 'Beyond Milky Way Tour (5000 years later)';
-            departureYear = '8050';
-            break;
-    }
-    
-    document.getElementById('ticketPackage').innerText = packageText;
-    document.getElementById('departureYear').innerText = departureYear;
-}
-
-function generateFreeTicket() {
-    const name = document.getElementById('name').value.toUpperCase();
-    const surname = document.getElementById('surname').value.toUpperCase();
-    const nationality = document.getElementById('nationality').value;
-    const package = document.getElementById('package').value;
-    
-    if (!name || !surname || !nationality || !package) {
-        alert("Please fill in all fields.");
-        return;
-    }
-    
-    document.getElementById('ticketName').innerText = name;
-    document.getElementById('ticketSurname').innerText = surname;
-    document.getElementById('ticketNationality').innerText = nationality;
-    updateTicketInfo();
-    
-    const ticket = document.getElementById('ticket');
-    ticket.style.display = 'block';
-}
-
-function purchaseTicket() {
-    const name = document.getElementById('name').value.toUpperCase();
-    const surname = document.getElementById('surname').value.toUpperCase();
-    const nationality = document.getElementById('nationality').value;
-    const package = document.getElementById('package').value;
-    
-    if (!name || !surname || !nationality || !package) {
-        alert("Please fill in all fields.");
-        return;
-    }
-    
-    const paymentMethod = prompt("Please enter your payment method (e.g., credit card number):");
-    if (paymentMethod) {
-        alert("Thank you for your purchase! Your payment method: " + paymentMethod);
-        document.getElementById('ticketName').innerText = name;
-        document.getElementById('ticketSurname').innerText = surname;
-        document.getElementById('ticketNationality').innerText = nationality;
-        updateTicketInfo();
-        
-        const ticket = document.getElementById('ticket');
-        ticket.style.display = 'block';
-    } else {
-        alert("Payment method is required to proceed.");
-    }
-}
-</script>
-</body>
-</html>
+body>
+  <div class="content-wrapper">
+      <h1>5000 YEARS LATER<br>SPACE TICKET</h1>
+      <h2>Reserve the Last Space Adventure for Earthlings</h2>
+      <div>
+          <input type="text" id="name" placeholder="Enter your name" required />
+      </div>
+      <div>
+          <input type="text" id="surname" class="surname-input" placeholder="Enter your surname" required />
+      </div>
+      <div>
+          <select id="nationality" required>
+              <option value="">Select your nationality</option>
+              <option value="China">China</option>
+              <option value="Colombia">Colombia</option>
+              <option value="India">India</option>
+              <option value="Italy">Italy</option>
+              <option value="Morocco">Morocco</option>
+              <option value="Peru">Peru</option>
+              <option value="Romania">Romania</option>
+              <option value="Other">Other</option>
+          </select>
+      </div>
+      <div>
+          <select id="package" required>
+              <option value="">Select your travel package</option>
+              <option value="package1">Package 1: Moon/Mars Tour (500 years later)</option>
+              <option value="package2">Package 2: Beyond Solar System Tour (2000 years later)</option>
+              <option value="package3">Package 3: Beyond Milky Way Tour (5000 years later)</option>
+          </select>
+      </div>
+      <div class="button-container">
+          <button onclick="generateFreeTicket()">Get Free Ticket if you are a classmate of the Founders</button>
+          <button onclick="purchaseTicket()">Purchase Ticket for 999 Euros</button>
+      </div>
+      <div id="ticket">
+          <div class="ticket-header"></div>
+          <div class="main-ticket">
+              <h2>Your Ticket</h2>
+              <p class="ticket-name" id="ticketName"></p>
+              <p class="ticket-surname" id="ticketSurname"></p>
+              <p class="ticket-info">Nationality: <span id="ticketNationality"></span></p>
+              <p class="ticket-info">Package: <span id="ticketPackage"></span></p>
+              <p class="ticket-info">Launch Site: Earth</p>
+              <p class="ticket-info">Arrival Site: Outer Space</p>
+              <p class="ticket-info">Scheduled Departure: <span id="departureYear"></span></p>
+          </div>
+          <div class="ticket-footer"></div>
+      </div>
+      
+      <div class="notice">
+          *Please fill in your real personal information, and we will keep it to find your descendants in the future.
+      </div>
+      <footer>
+          <p>&copy; 2024 Space Adventure. All rights reserved.</p>
+          <p>
+              Follow us on 
+              <a href="https://twitter.com" target="_blank">Twitter</a>, 
+              <a href="https://facebook.com" target="_blank">Facebook</a>, 
+              <a href="https://instagram.com" target="_blank">Instagram</a>
+          </p>
+          <p>
+              The accounts don't exist yet. But we are still working on it.
+          </p>
+      </footer>
+  </div>
+   <script>
+      function updateTicketInfo() {
+          const package = document.getElementById('package').value;
+          let packageText = '';
+          let departureYear = '';
+          
+          switch(package) {
+              case 'package1':
+                  packageText = 'Moon/Mars Tour (500 years later)';
+                  departureYear = '2850';
+                  break;
+              case 'package2':
+                  packageText = 'Beyond Solar System Tour (2000 years later)';
+                  departureYear = '5050';
+                  break;
+              case 'package3':
+                  packageText = 'Beyond Milky Way Tour (5000 years later)';
+                  departureYear = '8050';
+                  break;
+          }
+          
+          document.getElementById('ticketPackage').innerText = packageText;
+          document.getElementById('departureYear').innerText = departureYear;
+      }
+       function generateFreeTicket() {
+          const name = document.getElementById('name').value.toUpperCase();
+          const surname = document.getElementById('surname').value.toUpperCase();
+          const nationality = document.getElementById('nationality').value;
+          const package = document.getElementById('package').value;
+          
+          if (!name || !surname || !nationality || !package) {
+              alert("Please fill in all fields.");
+              return;
+          }
+          
+          document.getElementById('ticketName').innerText = name;
+          document.getElementById('ticketSurname').innerText = surname;
+          document.getElementById('ticketNationality').innerText = nationality;
+          updateTicketInfo();
+          
+          const ticket = document.getElementById('ticket');
+          ticket.style.display = 'block';
+      }
+       function purchaseTicket() {
+          const name = document.getElementById('name').value.toUpperCase();
+          const surname = document.getElementById('surname').value.toUpperCase();
+          const nationality = document.getElementById('nationality').value;
+          const package = document.getElementById('package').value;
+          
+          if (!name || !surname || !nationality || !package) {
+              alert("Please fill in all fields.");
+              return;
+          }
+          
+          const paymentMethod = prompt("Please enter your payment method (e.g., credit card number):");
+          if (paymentMethod) {
+              alert("Thank you for your purchase! Your payment method: " + paymentMethod);
+              document.getElementById('ticketName').innerText = name;
+              document.getElementById('ticketSurname').innerText = surname;
+              document.getElementById('ticketNationality').innerText = nationality;
+              updateTicketInfo();
+              
+              const ticket = document.getElementById('ticket');
+              ticket.style.display = 'block';
+          } else {
+              alert("Payment method is required to proceed.");
+          }
+      }
+  </script>
+/body>
+/html>
