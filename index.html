@@ -1,250 +1,287 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Space Ticket</title>
-   <style>
-       body {
-           font-family: 'Arial', sans-serif;
-           color: white;
-           text-align: center;
-           margin: 0;
-           font-weight: bold;
-           min-height: 100vh;
-           overflow-x: hidden;
-           background-image: url('background.jpg'); /* 修改为新的背景图片 */
-           background-attachment: scroll; /* 背景跟随页面滚动 */
-           background-size: cover;
-           background-position: center;
-       }
-        .content-wrapper {
-           position: relative;
-           z-index: 2; /* 确保内容在前面 */
-           padding: 30px 50px 50px 50px;
-       }
-        h1 {
-           font-size: 3.5em;
-           margin-bottom: 10px;
-           text-shadow: none; 
-           padding-top: 30px;
-       }
-        h2 {
-           font-size: 1.8em;
-           margin-bottom: 40px;
-           text-shadow: none; 
-       }
-        input, select {
-           padding: 10px;
-           font-size: 1.2em;
-           border: none;
-           border-radius: 5px;
-           margin-bottom: 20px;
-           width: 90%;
-           max-width: 400px;
-           font-weight: bold;
-           display: block;
-           margin-left: auto;
-           margin-right: auto;
-           background-color: rgba(255, 255, 255, 0.9);
-           box-shadow: 0 0 15px rgba(255,255,255,0.2);
-       }
-        .button-container {
-           display: flex;
-           justify-content: center;
-           flex-wrap: wrap;
-           margin-bottom: 20px;
-       }
-        button {
-           padding: 10px 20px;
-           font-size: 1.2em;
-           font-weight: bold;
-           color: #333;
-           background-color: #ffcc00;
-           border: none;
-           border-radius: 5px;
-           cursor: pointer;
-           transition: background-color 0.3s, color 0.3s;
-           margin: 10px;
-           flex: 1 1 200px;
-           box-shadow: 0 0 15px rgba(255,204,0,0.3);
-       }
-        button:hover {
-           background-color: #ff9900;
-           color: white;
-       }
-        #ticket {
-           width: 95%;
-           max-width: 600px;
-           height: auto;
-           margin: 20px auto;
-           padding: 30px;
-           border-radius: 10px;
-           background-color: rgba(240, 240, 240, 0.95);
-           color: black;
-           position: relative;
-           box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
-           overflow: hidden;
-           display: none;
-       }
-        footer {
-           margin-top: 50px;
-           padding: 20px;
-           background-color: rgba(0, 31, 63, 0.8);
-           color: white;
-           text-align: center;
-           position: relative;
-           z-index: 2;
-       }
-        footer a {
-           color: #ffcc00;
-           text-decoration: none;
-       }
-        footer a:hover {
-           text-decoration: underline;
-       }
-        .notice {
-           font-size: 0.8em;
-           font-style: italic;
-           margin-top: 20px;
-           text-shadow: 0 0 5px rgba(255,255,255,0.3);
-       }
-   </style>
-</head>
-<body>
-   <div class="content-wrapper">
-       <h1>5000 YEARS LATER<br>SPACE TICKET</h1> <!-- 分行显示 -->
-       <h2>Reserve the Last Space Adventure for Earthlings</h2>
-       <div>
-           <input type="text" id="name" placeholder="Enter your name" required />
-       </div>
-       <div>
-           <input type="text" id="surname" class="surname-input" placeholder="Enter your surname" required />
-       </div>
-       <div>
-           <select id="nationality" required>
-               <option value="">Select your nationality</option>
-               <option value="China">China</option>
-               <option value="Colombia">Colombia</option>
-               <option value="India">India</option>
-               <option value="Italy">Italy</option>
-               <option value="Morocco">Morocco</option>
-               <option value="Peru">Peru</option>
-               <option value="Romania">Romania</option>
-               <option value="Other">Other</option>
-           </select>
-       </div>
-       <div>
-           <select id="package" required>
-               <option value="">Select your travel package</option>
-               <option value="package1">Package 1: Moon/Mars Tour (500 years later)</option>
-               <option value="package2">Package 2: Beyond Solar System Tour (2000 years later)</option>
-               <option value="package3">Package 3: Beyond Milky Way Tour (5000 years later)</option>
-           </select>
-       </div>
-       <div class="button-container">
-           <button onclick="generateFreeTicket()">Get Free Ticket if you are a classmate of the Founders</button>
-           <button onclick="purchaseTicket()">Purchase Ticket for 999 Euros</button>
-       </div>
-       <div id="ticket">
-           <div class="main-ticket">
-               <div class="ticket-header"></div>
-               <h2>Your Ticket</h2>
-               <p class="ticket-name" id="ticketName"></p>
-               <p class="ticket-surname" id="ticketSurname"></p>
-               <p class="ticket-info">Nationality: <span id="ticketNationality"></span></p>
-               <p class="ticket-info">Package: <span id="ticketPackage"></span></p>
-               <p class="ticket-info">Launch Site: Earth</p>
-               <p class="ticket-info">Arrival Site: Outer Space</p>
-               <p class="ticket-info">Scheduled Departure: <span id="departureYear"></span></p>
-               <div class="ticket-footer"></div>
-           </div>
-       </div>
-       
-       <div class="notice">
-           *Please fill in your real personal information, and we will keep it to find your descendants in the future.
-       </div>
-       <footer>
-           <p>&copy; 2024 Space Adventure. All rights reserved.</p>
-           <p>
-               Follow us on 
-               <a href="https://twitter.com" target="_blank">Twitter</a>, 
-               <a href="https://facebook.com" target="_blank">Facebook</a>, 
-               <a href="https://instagram.com" target="_blank">Instagram</a>
-           </p>
-           <p>
-               The accounts don't exist yet. But we are still working on it.
-           </p>
-       </footer>
-   </div>
-    <script>
-       function updateTicketInfo() {
-           const package = document.getElementById('package').value;
-           let packageText = '';
-           let departureYear = '';
-           
-           switch(package) {
-               case 'package1':
-                   packageText = 'Moon/Mars Tour (500 years later)';
-                   departureYear = '2850';
-                   break;
-               case 'package2':
-                   packageText = 'Beyond Solar System Tour (2000 years later)';
-                   departureYear = '5050';
-                   break;
-               case 'package3':
-                   packageText = 'Beyond Milky Way Tour (5000 years later)';
-                   departureYear = '8050';
-                   break;
-           }
-           
-           document.getElementById('ticketPackage').innerText = packageText;
-           document.getElementById('departureYear').innerText = departureYear;
-       }
-        function generateFreeTicket() {
-           const name = document.getElementById('name').value.toUpperCase();
-           const surname = document.getElementById('surname').value.toUpperCase();
-           const nationality = document.getElementById('nationality').value;
-           const package = document.getElementById('package').value;
-           
-           if (!name || !surname || !nationality || !package) {
-               alert("Please fill in all fields.");
-               return;
-           }
-           
-           document.getElementById('ticketName').innerText = name;
-           document.getElementById('ticketSurname').innerText = surname;
-           document.getElementById('ticketNationality').innerText = nationality;
-           updateTicketInfo();
-           
-           const ticket = document.getElementById('ticket');
-           ticket.style.display = 'block';
-       }
-        function purchaseTicket() {
-           const name = document.getElementById('name').value.toUpperCase();
-           const surname = document.getElementById('surname').value.toUpperCase();
-           const nationality = document.getElementById('nationality').value;
-           const package = document.getElementById('package').value;
-           
-           if (!name || !surname || !nationality || !package) {
-               alert("Please fill in all fields.");
-               return;
-           }
-           
-           const paymentMethod = prompt("Please enter your payment method (e.g., credit card number):");
-           if (paymentMethod) {
-               alert("Thank you for your purchase! Your payment method: " + paymentMethod);
-               document.getElementById('ticketName').innerText = name;
-               document.getElementById('ticketSurname').innerText = surname;
-               document.getElementById('ticketNationality').innerText = nationality;
-               updateTicketInfo();
-               
-               const ticket = document.getElementById('ticket');
-               ticket.style.display = 'block';
-           } else {
-               alert("Payment method is required to proceed.");
-           }
-       }
-   </script>
+html lang="en">
+head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Space Ticket</title>
+  <style>
+      body {
+          font-family: 'Arial', sans-serif;
+          color: white;
+          text-align: center;
+          margin: 0;
+          font-weight: bold;
+          min-height: 100vh;
+          overflow-x: hidden;
+          background-image: url('background.jpg');
+          background-attachment: scroll;
+          background-size: cover;
+          background-position: center;
+      }
+      .content-wrapper {
+          position: relative;
+          z-index: 2;
+          padding: 30px 50px 50px 50px;
+      }
+      h1 {
+          font-size: 3.5em;
+          margin-bottom: 10px;
+          text-shadow: none; 
+          padding-top: 30px;
+      }
+      h2 {
+          font-size: 1.8em;
+          margin-bottom: 40px;
+          text-shadow: none; 
+      }
+      input, select {
+          padding: 10px;
+          font-size: 1.2em;
+          border: none;
+          border-radius: 5px;
+          margin-bottom: 20px;
+          width: 90%;
+          max-width: 400px;
+          font-weight: bold;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          background-color: rgba(255, 255, 255, 0.9);
+          box-shadow: 0 0 15px rgba(255,255,255,0.2);
+      }
+      .button-container {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          margin-bottom: 20px;
+      }
+      button {
+          padding: 10px 20px;
+          font-size: 1.2em;
+          font-weight: bold;
+          color: #333;
+          background-color: #ffcc00;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s, color 0.3s;
+          margin: 10px;
+          flex: 1 1 200px;
+          box-shadow: 0 0 15px rgba(255,204,0,0.3);
+      }
+      button:hover {
+          background-color: #ff9900;
+          color: white;
+      }
+      #ticket {
+          width: 95%;
+          max-width: 600px;
+          height: auto;
+          margin: 20px auto;
+          padding: 40px 30px;
+          border-radius: 10px;
+          background-color: rgba(240, 240, 240, 0.95);
+          color: black;
+          position: relative;
+          box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+          overflow: hidden;
+          display: none;
+      }
+      #ticket .ticket-header,
+      #ticket .ticket-footer {
+          background-color: #ffcc00;
+          height: 30px;
+          width: 100%;
+          position: absolute;
+          left: 0;
+      }
+      #ticket .ticket-header {
+          top: 0;
+      }
+      #ticket .ticket-footer {
+          bottom: 0;
+      }
+      #ticket h2 {
+          font-size: 2.5em;
+          text-transform: uppercase;
+          margin-top: 10px;
+          margin-bottom: 20px;
+      }
+      #ticket .ticket-name,
+      #ticket .ticket-surname {
+          font-size: 2em;
+          text-align: left;
+          margin-left: 20px;
+          text-transform: uppercase;
+          margin-bottom: 15px;
+      }
+      #ticket .ticket-info {
+          text-align: left;
+          margin-left: 20px;
+          text-transform: uppercase;
+          margin-bottom: 10px;
+      }
+      footer {
+          margin-top: 50px;
+          padding: 20px;
+          background-color: rgba(0, 31, 63, 0.8);
+          color: white;
+          text-align: center;
+          position: relative;
+          z-index: 2;
+      }
+      footer a {
+          color: #ffcc00;
+          text-decoration: none;
+      }
+      footer a:hover {
+          text-decoration: underline;
+      }
+      .notice {
+          font-size: 0.8em;
+          font-style: italic;
+          margin-top: 20px;
+          text-shadow: 0 0 5px rgba(255,255,255,0.3);
+      }
+  </style>
+/head>
+
+class="content-wrapper">
+<h1>5000 YEARS LATER<br>SPACE TICKET</h1>
+<h2>Reserve the Last Space Adventure for Earthlings</h2>
+<div>
+    <input type="text" id="name" placeholder="Enter your name" required />
+</div>
+<div>
+    <input type="text" id="surname" class="surname-input" placeholder="Enter your surname" required />
+</div>
+<div>
+    <select id="nationality" required>
+        <option value="">Select your nationality</option>
+        <option value="China">China</option>
+        <option value="Colombia">Colombia</option>
+        <option value="India">India</option>
+        <option value="Italy">Italy</option>
+        <option value="Morocco">Morocco</option>
+        <option value="Peru">Peru</option>
+        <option value="Romania">Romania</option>
+        <option value="Other">Other</option>
+    </select>
+</div>
+<div>
+    <select id="package" required>
+        <option value="">Select your travel package</option>
+        <option value="package1">Package 1: Moon/Mars Tour (500 years later)</option>
+        <option value="package2">Package 2: Beyond Solar System Tour (2000 years later)</option>
+        <option value="package3">Package 3: Beyond Milky Way Tour (5000 years later)</option>
+    </select>
+</div>
+<div class="button-container">
+    <button onclick="generateFreeTicket()">Get Free Ticket if you are a classmate of the Founders</button>
+    <button onclick="purchaseTicket()">Purchase Ticket for 999 Euros</button>
+</div>
+<div id="ticket">
+    <div class="ticket-header"></div>
+    <div class="main-ticket">
+        <h2>Your Ticket</h2>
+        <p class="ticket-name" id="ticketName"></p>
+        <p class="ticket-surname" id="ticketSurname"></p>
+        <p class="ticket-info">Nationality: <span id="ticketNationality"></span></p>
+        <p class="ticket-info">Package: <span id="ticketPackage"></span></p>
+        <p class="ticket-info">Launch Site: Earth</p>
+        <p class="ticket-info">Arrival Site: Outer Space</p>
+        <p class="ticket-info">Scheduled Departure: <span id="departureYear"></span></p>
+    </div>
+    <div class="ticket-footer"></div>
+</div>
+
+<div class="notice">
+    *Please fill in your real personal information, and we will keep it to find your descendants in the future.
+</div>
+<footer>
+    <p>&copy; 2024 Space Adventure. All rights reserved.</p>
+    <p>
+        Follow us on 
+        <a href="https://twitter.com" target="_blank">Twitter</a>, 
+        <a href="https://facebook.com" target="_blank">Facebook</a>, 
+        <a href="https://instagram.com" target="_blank">Instagram</a>
+    </p>
+    <p>
+        The accounts don't exist yet. But we are still working on it.
+    </p>
+</footer>
+</div>
+
+<script>
+function updateTicketInfo() {
+    const package = document.getElementById('package').value;
+    let packageText = '';
+    let departureYear = '';
+    
+    switch(package) {
+        case 'package1':
+            packageText = 'Moon/Mars Tour (500 years later)';
+            departureYear = '2850';
+            break;
+        case 'package2':
+            packageText = 'Beyond Solar System Tour (2000 years later)';
+            departureYear = '5050';
+            break;
+        case 'package3':
+            packageText = 'Beyond Milky Way Tour (5000 years later)';
+            departureYear = '8050';
+            break;
+    }
+    
+    document.getElementById('ticketPackage').innerText = packageText;
+    document.getElementById('departureYear').innerText = departureYear;
+}
+
+function generateFreeTicket() {
+    const name = document.getElementById('name').value.toUpperCase();
+    const surname = document.getElementById('surname').value.toUpperCase();
+    const nationality = document.getElementById('nationality').value;
+    const package = document.getElementById('package').value;
+    
+    if (!name || !surname || !nationality || !package) {
+        alert("Please fill in all fields.");
+        return;
+    }
+    
+    document.getElementById('ticketName').innerText = name;
+    document.getElementById('ticketSurname').innerText = surname;
+    document.getElementById('ticketNationality').innerText = nationality;
+    updateTicketInfo();
+    
+    const ticket = document.getElementById('ticket');
+    ticket.style.display = 'block';
+}
+
+function purchaseTicket() {
+    const name = document.getElementById('name').value.toUpperCase();
+    const surname = document.getElementById('surname').value.toUpperCase();
+    const nationality = document.getElementById('nationality').value;
+    const package = document.getElementById('package').value;
+    
+    if (!name || !surname || !nationality || !package) {
+        alert("Please fill in all fields.");
+        return;
+    }
+    
+    const paymentMethod = prompt("Please enter your payment method (e.g., credit card number):");
+    if (paymentMethod) {
+        alert("Thank you for your purchase! Your payment method: " + paymentMethod);
+        document.getElementById('ticketName').innerText = name;
+        document.getElementById('ticketSurname').innerText = surname;
+        document.getElementById('ticketNationality').innerText = nationality;
+        updateTicketInfo();
+        
+        const ticket = document.getElementById('ticket');
+        ticket.style.display = 'block';
+    } else {
+        alert("Payment method is required to proceed.");
+    }
+}
+</script>
 </body>
-</html> 
+</html>
