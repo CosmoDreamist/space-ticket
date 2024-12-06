@@ -15,10 +15,8 @@
             font-weight: bold;
             min-height: 100vh;
             overflow-x: hidden;
-            background: linear-gradient(45deg, #1a1a1a, #4a4a4a);
-            background-attachment: fixed;
+            background: url('background.jpg') no-repeat center center fixed;
             background-size: cover;
-            background-position: center;
         }
         .content-wrapper {
             position: relative;
@@ -92,21 +90,26 @@
         }
         .ticket-content {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
             padding: 0 20px;
         }
+        .ticket-info-container {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
         .ticket-left {
             flex: 2;
-            text-align: center;
+            padding-right: 20px;
         }
         .ticket-right {
             flex: 1;
+            border-left: 2px dashed #ccc;
+            padding-left: 20px;
             display: flex;
             justify-content: center;
-            align-items: center;
-            padding-left: 20px;
-            border-left: 2px dashed #ccc;
         }
         #ticket .ticket-header,
         #ticket .ticket-footer {
@@ -125,11 +128,9 @@
         #ticket h2 {
             font-size: 2.5em;
             text-transform: uppercase;
-            margin-top: 10px;
-            margin-bottom: 20px;
+            margin: 10px 0 30px 0;
             text-align: center;
             width: 100%;
-            margin-left: -20px;
         }
         #ticket .ticket-name,
         #ticket .ticket-surname {
@@ -144,11 +145,6 @@
             margin-left: 20px;
             text-transform: uppercase;
             margin-bottom: 10px;
-        }
-        .ticket-left .ticket-info,
-        .ticket-left .ticket-name,
-        .ticket-left .ticket-surname {
-            text-align: left;
         }
         .countdown {
             background-color: rgba(0, 0, 0, 0.5);
@@ -226,14 +222,18 @@
             margin-bottom: 20px;
             animation: rotate 2s infinite;
         }
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(90deg); }
-        }
         #orientation-message p {
             color: white;
             font-size: 1.2em;
             margin: 10px 0;
+            width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
+            white-space: pre-line;
+        }
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(90deg); }
         }
         @media screen and (max-width: 768px) and (orientation: portrait) {
             .content-wrapper {
@@ -245,12 +245,14 @@
         }
     </style>
 </head>
-<body></body>
+<body>
     <!-- 横屏提示框 -->
     <div id="orientation-message">
         <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+PHBhdGggZD0iTTE2LjQ4IDIuNTJjMy4yNyAxLjU1IDUuNjEgNC43MiA1Ljk3IDguNDhoMS41di0xLjVjLS4wMy00LjYxLTIuODQtOC45NC03LjQ3LTEwLjVWMi41MnptLTQuMDIgMHY0LjA3YzIuMzkuNDkgNC4yNSAyLjMzIDQuNzMgNC43M2g0LjI4Yy0uNDYtNC43Ny00LjI0LTguNS05LjAxLTguOHptLjAyIDE4Ljk2di0yLjUyYy0zLjI3LTEuNTUtNS42MS00LjcyLTUuOTctOC40OEgydi4wMWMuMDMgNC42MSAyLjg0IDguOTQgNy40NyAxMC41djIuNTF6bTQuMDItMi41MnYtNC4wN2MtMi4zOS0uNDktNC4yNS0yLjMzLTQuNzMtNC43M0g3LjQ5Yy40NiA0Ljc3IDQuMjQgOC41IDkuMDEgOC44eiIvPjwvc3ZnPg==" alt="rotate device">
-        <p>Please rotate your device to landscape mode</p>
-        <p>Per favore, ruota il dispositivo in modalità orizzontale</p>
+        <p>Please rotate your device
+to landscape mode</p>
+        <p>Per favore, ruota il dispositivo
+in modalità orizzontale</p>
     </div>
 
     <audio id="ticketSound" src="https://www.soundjay.com/mechanical/sounds/printer-01.mp3" preload="auto"></audio>
@@ -294,19 +296,21 @@
 
         <div id="ticket">
             <div class="ticket-header"></div>
+            <h2>Your Ticket</h2>
             <div class="ticket-content">
-                <div class="ticket-left">
-                    <h2>Your Ticket</h2>
-                    <p class="ticket-info">Ticket No: <span id="ticketNumber"></span></p>
-                    <p class="ticket-name" id="ticketName"></p>
-                    <p class="ticket-surname" id="ticketSurname"></p>
-                    <p class="ticket-info">Nationality: <span id="ticketNationality"></span></p>
-                    <p class="ticket-info">Launch Site: Earth</p>
-                    <p class="ticket-info">Arrival Site: Outer Space</p>
-                    <p class="ticket-info">Scheduled Departure: Year 8050</p>
-                </div>
-                <div class="ticket-right">
-                    <div class="qr-code" id="ticketQR"></div>
+                <div class="ticket-info-container">
+                    <div class="ticket-left">
+                        <p class="ticket-info">Ticket No: <span id="ticketNumber"></span></p>
+                        <p class="ticket-name" id="ticketName"></p>
+                        <p class="ticket-surname" id="ticketSurname"></p>
+                        <p class="ticket-info">Nationality: <span id="ticketNationality"></span></p>
+                        <p class="ticket-info">Launch Site: Earth</p>
+                        <p class="ticket-info">Arrival Site: Outer Space</p>
+                        <p class="ticket-info">Scheduled Departure: Year 8050</p>
+                    </div>
+                    <div class="ticket-right">
+                        <div class="qr-code" id="ticketQR"></div>
+                    </div>
                 </div>
             </div>
             <div class="ticket-footer"></div>
@@ -330,6 +334,7 @@
             </p>
         </footer>
     </div>
+
     <script>
         // 更新后的倒计时功能
         function updateCountdown() {
@@ -342,9 +347,8 @@
         // 每天更新一次倒计时
         updateCountdown();
         setInterval(updateCountdown, 86400000);
-
-        // 生成票号
-        function generateTicketNumber() {
+                // 生成票号
+                function generateTicketNumber() {
             const timestamp = Date.now().toString();
             const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
             return `ST-${timestamp}-${random}`;
