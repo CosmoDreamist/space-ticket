@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space Ticket</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -13,8 +15,8 @@
             font-weight: bold;
             min-height: 100vh;
             overflow-x: hidden;
-            background-image: url('background.jpg');
-            background-attachment: scroll;
+            background: linear-gradient(45deg, #1a1a1a, #4a4a4a);
+            background-attachment: fixed;
             background-size: cover;
             background-position: center;
         }
@@ -75,7 +77,7 @@
         }
         #ticket {
             width: 95%;
-            max-width: 600px;
+            max-width: 800px;
             height: auto;
             margin: 20px auto;
             padding: 40px 30px;
@@ -86,6 +88,25 @@
             box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
             overflow: hidden;
             display: none;
+            transition: all 0.5s ease-out;
+        }
+        .ticket-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .ticket-left {
+            flex: 2;
+            text-align: center;
+        }
+        .ticket-right {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-left: 20px;
+            border-left: 2px dashed #ccc;
         }
         #ticket .ticket-header,
         #ticket .ticket-footer {
@@ -106,6 +127,9 @@
             text-transform: uppercase;
             margin-top: 10px;
             margin-bottom: 20px;
+            text-align: center;
+            width: 100%;
+            margin-left: -20px;
         }
         #ticket .ticket-name,
         #ticket .ticket-surname {
@@ -120,6 +144,44 @@
             margin-left: 20px;
             text-transform: uppercase;
             margin-bottom: 10px;
+        }
+        .ticket-left .ticket-info,
+        .ticket-left .ticket-name,
+        .ticket-left .ticket-surname {
+            text-align: left;
+        }
+        .countdown {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 500px;
+        }
+        #countdown-timer {
+            font-size: 1.5em;
+            margin-top: 10px;
+        }
+        #countdown-timer span {
+            color: #ffcc00;
+            font-weight: bold;
+        }
+        .qr-code {
+            width: 120px;
+            height: 120px;
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .qr-code img {
+            width: 100%;
+            height: 100%;
+        }
+        .save-button {
+            background-color: #4CAF50;
+            color: white;
+            margin: 20px auto;
+            max-width: 200px;
+            display: none;
         }
         footer {
             margin-top: 50px;
@@ -143,12 +205,69 @@
             margin-top: 20px;
             text-shadow: 0 0 5px rgba(255,255,255,0.3);
         }
+        #orientation-message {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+        }
+        #orientation-message img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            animation: rotate 2s infinite;
+        }
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(90deg); }
+        }
+        #orientation-message p {
+            color: white;
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        @media screen and (max-width: 768px) and (orientation: portrait) {
+            .content-wrapper {
+                display: none;
+            }
+            #orientation-message {
+                display: flex;
+            }
+        }
     </style>
 </head>
-<body>
+<body></body>
+    <!-- 横屏提示框 -->
+    <div id="orientation-message">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+PHBhdGggZD0iTTE2LjQ4IDIuNTJjMy4yNyAxLjU1IDUuNjEgNC43MiA1Ljk3IDguNDhoMS41di0xLjVjLS4wMy00LjYxLTIuODQtOC45NC03LjQ3LTEwLjVWMi41MnptLTQuMDIgMHY0LjA3YzIuMzkuNDkgNC4yNSAyLjMzIDQuNzMgNC43M2g0LjI4Yy0uNDYtNC43Ny00LjI0LTguNS05LjAxLTguOHptLjAyIDE4Ljk2di0yLjUyYy0zLjI3LTEuNTUtNS42MS00LjcyLTUuOTctOC40OEgydi4wMWMuMDMgNC42MSAyLjg0IDguOTQgNy40NyAxMC41djIuNTF6bTQuMDItMi41MnYtNC4wN2MtMi4zOS0uNDktNC4yNS0yLjMzLTQuNzMtNC43M0g3LjQ5Yy40NiA0Ljc3IDQuMjQgOC41IDkuMDEgOC44eiIvPjwvc3ZnPg==" alt="rotate device">
+        <p>Please rotate your device to landscape mode</p>
+        <p>Per favore, ruota il dispositivo in modalità orizzontale</p>
+    </div>
+
+    <audio id="ticketSound" src="https://www.soundjay.com/mechanical/sounds/printer-01.mp3" preload="auto"></audio>
+
     <div class="content-wrapper">
         <h1>5000 YEARS LATER<br>SPACE TICKET</h1>
         <h2>Reserve the Last Space Adventure for Earthlings</h2>
+
+        <div class="countdown">
+            <h3>Time Until Launch:</h3>
+            <div id="countdown-timer">
+                <span id="years">0</span> years
+                <span id="months">0</span> months
+                <span id="days">0</span> days
+            </div>
+        </div>
+
         <div>
             <input type="text" id="name" placeholder="Enter your name" required />
         </div>
@@ -168,32 +287,32 @@
                 <option value="Other">Other</option>
             </select>
         </div>
-        <div>
-            <select id="package" required>
-                <option value="">Select your travel package</option>
-                <option value="package1">Package 1: Moon/Mars Tour (500 years later)</option>
-                <option value="package2">Package 2: Beyond Solar System Tour (2000 years later)</option>
-                <option value="package3">Package 3: Beyond Milky Way Tour (5000 years later)</option>
-            </select>
-        </div>
         <div class="button-container">
             <button onclick="generateFreeTicket()">Get Free Ticket if you are a classmate of the Founders</button>
             <button onclick="purchaseTicket()">Purchase Ticket for 500 Euros</button>
         </div>
+
         <div id="ticket">
             <div class="ticket-header"></div>
-            <div class="main-ticket">
-                <h2>Your Ticket</h2>
-                <p class="ticket-name" id="ticketName"></p>
-                <p class="ticket-surname" id="ticketSurname"></p>
-                <p class="ticket-info">Nationality: <span id="ticketNationality"></span></p>
-                <p class="ticket-info">Package: <span id="ticketPackage"></span></p>
-                <p class="ticket-info">Launch Site: Earth</p>
-                <p class="ticket-info">Arrival Site: Outer Space</p>
-                <p class="ticket-info">Scheduled Departure: <span id="departureYear"></span></p>
+            <div class="ticket-content">
+                <div class="ticket-left">
+                    <h2>Your Ticket</h2>
+                    <p class="ticket-info">Ticket No: <span id="ticketNumber"></span></p>
+                    <p class="ticket-name" id="ticketName"></p>
+                    <p class="ticket-surname" id="ticketSurname"></p>
+                    <p class="ticket-info">Nationality: <span id="ticketNationality"></span></p>
+                    <p class="ticket-info">Launch Site: Earth</p>
+                    <p class="ticket-info">Arrival Site: Outer Space</p>
+                    <p class="ticket-info">Scheduled Departure: Year 8050</p>
+                </div>
+                <div class="ticket-right">
+                    <div class="qr-code" id="ticketQR"></div>
+                </div>
             </div>
             <div class="ticket-footer"></div>
         </div>
+        
+        <button onclick="saveTicket()" class="save-button">Save Ticket</button>
         
         <div class="notice">
             *Please fill in your real personal information, and we will keep it to find your descendants in the future.
@@ -207,63 +326,112 @@
                 <a href="https://instagram.com" target="_blank">Instagram</a>
             </p>
             <p>
-                The accounts don't exist yet. But we are still working on it.
+                These social media accounts are coming soon. We're working on it!
             </p>
         </footer>
     </div>
-
     <script>
-        function updateTicketInfo() {
-            const package = document.getElementById('package').value;
-            let packageText = '';
-            let departureYear = '';
-            
-            switch(package) {
-                case 'package1':
-                    packageText = 'Moon/Mars Tour (500 years later)';
-                    departureYear = '2850';
-                    break;
-                case 'package2':
-                    packageText = 'Beyond Solar System Tour (2000 years later)';
-                    departureYear = '5050';
-                    break;
-                case 'package3':
-                    packageText = 'Beyond Milky Way Tour (5000 years later)';
-                    departureYear = '8050';
-                    break;
-            }
-            
-            document.getElementById('ticketPackage').innerText = packageText;
-            document.getElementById('departureYear').innerText = departureYear;
+        // 更新后的倒计时功能
+        function updateCountdown() {
+            // 固定显示 4999年12个月30天
+            document.getElementById('years').textContent = '4999';
+            document.getElementById('months').textContent = '12';
+            document.getElementById('days').textContent = '30';
+        }
+        
+        // 每天更新一次倒计时
+        updateCountdown();
+        setInterval(updateCountdown, 86400000);
+
+        // 生成票号
+        function generateTicketNumber() {
+            const timestamp = Date.now().toString();
+            const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+            return `ST-${timestamp}-${random}`;
         }
 
+        // 生成QR码
+        function generateQRCode(ticketData) {
+            const qr = qrcode(0, 'M');
+            qr.addData(JSON.stringify(ticketData));
+            qr.make();
+            document.getElementById('ticketQR').innerHTML = qr.createImgTag(5);
+        }
+
+        // 播放音效
+        function playTicketSound() {
+            const sound = document.getElementById('ticketSound');
+            sound.play().catch(e => console.log('Audio play failed:', e));
+        }
+
+        // 显示票据动画
+        function showTicketWithAnimation() {
+            const ticket = document.getElementById('ticket');
+            const saveButton = document.querySelector('.save-button');
+            
+            ticket.style.display = 'block';
+            saveButton.style.display = 'block';
+            ticket.style.opacity = '0';
+            ticket.style.transform = 'translateY(50px)';
+            saveButton.style.opacity = '0';
+            
+            setTimeout(() => {
+                ticket.style.opacity = '1';
+                ticket.style.transform = 'translateY(0)';
+                saveButton.style.opacity = '1';
+            }, 100);
+        }
+
+        // 保存票据为图片
+        function saveTicket() {
+            html2canvas(document.getElementById('ticket')).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'space-ticket.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+
+        // 生成免费票据
         function generateFreeTicket() {
             const name = document.getElementById('name').value.toUpperCase();
             const surname = document.getElementById('surname').value.toUpperCase();
             const nationality = document.getElementById('nationality').value;
-            const package = document.getElementById('package').value;
             
-            if (!name || !surname || !nationality || !package) {
+            if (!name || !surname || !nationality) {
                 alert("Please fill in all fields.");
                 return;
             }
             
+            const ticketNumber = generateTicketNumber();
+            
             document.getElementById('ticketName').innerText = name;
             document.getElementById('ticketSurname').innerText = surname;
             document.getElementById('ticketNationality').innerText = nationality;
-            updateTicketInfo();
+            document.getElementById('ticketNumber').innerText = ticketNumber;
             
-            const ticket = document.getElementById('ticket');
-            ticket.style.display = 'block';
+            // 生成QR码数据
+            const ticketData = {
+                number: ticketNumber,
+                name: name,
+                surname: surname,
+                nationality: nationality,
+                type: 'FREE',
+                departure: 'Year 8050'
+            };
+            generateQRCode(ticketData);
+            
+            playTicketSound();
+            showTicketWithAnimation();
         }
 
+        // 购买票据
         function purchaseTicket() {
             const name = document.getElementById('name').value.toUpperCase();
             const surname = document.getElementById('surname').value.toUpperCase();
             const nationality = document.getElementById('nationality').value;
-            const package = document.getElementById('package').value;
             
-            if (!name || !surname || !nationality || !package) {
+            if (!name || !surname || !nationality) {
                 alert("Please fill in all fields.");
                 return;
             }
@@ -271,17 +439,62 @@
             const paymentMethod = prompt("Please enter your payment method (e.g., credit card number):");
             if (paymentMethod) {
                 alert("Thank you for your purchase! Your payment method: " + paymentMethod);
+                
+                const ticketNumber = generateTicketNumber();
+                
                 document.getElementById('ticketName').innerText = name;
                 document.getElementById('ticketSurname').innerText = surname;
                 document.getElementById('ticketNationality').innerText = nationality;
-                updateTicketInfo();
+                document.getElementById('ticketNumber').innerText = ticketNumber;
                 
-                const ticket = document.getElementById('ticket');
-                ticket.style.display = 'block';
+                // 生成QR码数据
+                const ticketData = {
+                    number: ticketNumber,
+                    name: name,
+                    surname: surname,
+                    nationality: nationality,
+                    type: 'PAID',
+                    departure: 'Year 8050'
+                };
+                generateQRCode(ticketData);
+                
+                playTicketSound();
+                showTicketWithAnimation();
             } else {
                 alert("Payment method is required to proceed.");
             }
         }
+
+        // 检查设备方向
+        function checkOrientation() {
+            const orientationMessage = document.getElementById('orientation-message');
+            const contentWrapper = document.querySelector('.content-wrapper');
+            
+            if (window.innerWidth <= 768) { // 移动设备
+                if (window.orientation === 90 || window.orientation === -90) {
+                    // 横屏
+                    orientationMessage.style.display = 'none';
+                    contentWrapper.style.display = 'block';
+                } else {
+                    // 竖屏
+                    orientationMessage.style.display = 'flex';
+                    contentWrapper.style.display = 'none';
+                }
+            } else {
+                // 桌面设备
+                orientationMessage.style.display = 'none';
+                contentWrapper.style.display = 'block';
+            }
+        }
+
+        // 监听屏幕旋转事件
+        window.addEventListener('orientationchange', checkOrientation);
+        window.addEventListener('resize', checkOrientation);
+        window.addEventListener('load', checkOrientation);
+
+        // 初始检查
+        checkOrientation();
     </script>
 </body>
 </html>
+
